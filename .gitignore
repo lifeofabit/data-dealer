@@ -1,0 +1,7 @@
+*.DS_Store
+*.pyc
+.coverage
+dealer.egg-info
+dealer/registry/registry.yaml
+tmp
+config.py
