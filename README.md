@@ -1,5 +1,5 @@
 # data-dealer
-A library for Data Virtualization and ETL
+A Python library for Data Virtualization and ETL
 
 
 ## Current Dealer Integrations
