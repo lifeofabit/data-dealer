@@ -81,7 +81,7 @@ class Registry(object):
         Runs a registry command.  Potential to refactor from nested to functional
         """
         self.logger.debug('Running registry command: {}'.format(command))
-        if command == 'display':
+        if command == 'display' or command == 'show':
             self.display()
         elif command == 'add' or command == 'update':
             # TO-DO: Fix update command, currently clobbers what is there

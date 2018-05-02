@@ -42,6 +42,7 @@ setup(
 		'Click',
 		'pandas',
 		'pymssql',
+		'python-dateutil<2.7',
 		'ruamel.yaml'
     ],
 	extras_require = {

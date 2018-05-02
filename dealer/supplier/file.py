@@ -54,11 +54,11 @@ class Csv(File):
     @log_method('Writing data to CSV file', 'Writing complete')
     def write(self, data, file_path, load_type, **kwargs):
         if load_type == 'overwrite':
-            data.to_csv(file_path, encoding='utf-8')
+            data.to_csv(file_path, index=False, encoding='utf-8')
 
         elif load_type == 'append':
             with open(file_path, 'a') as f:
-                data.to_csv(f, header=False, encoding='utf-8')
+                data.to_csv(f, header=False, index=False, encoding='utf-8')
 
         else:
             self.logger.critical('Load type {} is not currently implemeneted.  Please use overwrite or append'.format(load_type))
