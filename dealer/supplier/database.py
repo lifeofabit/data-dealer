@@ -122,7 +122,7 @@ class Dynamo(Database):
             for item in items:
                 try:
                     batch.put_item(Item=item)
-                except Exception, ex:
+                except Exception as ex:
                     print(ex.message, ex.args)
                     raise Exception
 
@@ -165,7 +165,7 @@ class Mssql(Database):
     def connect(self, dbase):
         try:
             return self.sql.connect(self.metadata['host'], self.metadata['uname'], self.metadata['pword'], dbase)
-        except Exception, ex:
+        except Exception as ex:
             raise ex
 
     def options(self, data):
@@ -240,7 +240,7 @@ class Mssql(Database):
         try:
             cursor.executemany(query, items)
             self.logger.info('Wrote {} records to MSSQL table: {}'.format(len(items), table))
-        except Exception, ex:
+        except Exception as ex:
             self.logger.error('Error writing to table: {}'.format(ex))
 
     def _merge(self, cursor, data, table):
@@ -254,7 +254,7 @@ class Mssql(Database):
     def _truncate(self, cursor, table):
         try:
             cursor.execute('TRUNCATE TABLE {}'.format(table))
-        except Exception, ex:
+        except Exception as ex:
             self.logger.error('Error truncating table: {}'.format(table))
 
     def _update(self, cursor, data, table):
@@ -275,7 +275,7 @@ class Redshift(Database):
     def connect(self, dbase):
         try:
             return self.sql.connect(host=self.metadata['host'], port=self.metadata['port'], user=self.metadata['uname'], password=self.metadata['pword'], dbname=dbase)
-        except Exception, ex:
+        except Exception as ex:
             raise ex
 
     def options(self, data):
@@ -342,5 +342,5 @@ class Redshift(Database):
         try:
             cursor.executemany(query, items)
             self.logger.info('Wrote {} records to MSSQL table: {}'.format(len(items), table))
-        except Exception, ex:
+        except Exception as ex:
             self.logger.error('Error writing to table: {}'.format(ex))
