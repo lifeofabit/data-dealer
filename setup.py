@@ -41,6 +41,7 @@ setup(
 		'boto3',
 		'Click',
 		'pandas',
+		'psycopg2',
 		'pymssql',
 		'python-dateutil<2.7',
 		'ruamel.yaml'

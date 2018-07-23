@@ -30,10 +30,10 @@ class Registry(object):
         Display Command.  Print registry to terminal
         """
         if not self.registry:
-            print 'The registry is empty!'
+            self.logger.info('The registry is empty!')
         else:
-            print '{:#<50}\n{}\n'.format('', '# Data Suppliers:')
-            print yaml.dump(self.registry, default_flow_style=False)
+            self.logger.info('{:#<50}\n{}\n'.format('', '# Data Suppliers:'))
+            self.logger.info(yaml.dump(self.registry, default_flow_style=False))
 
     def get(self, supplier):
         """

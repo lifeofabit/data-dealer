@@ -123,9 +123,7 @@ class Dynamo(Database):
                 try:
                     batch.put_item(Item=item)
                 except Exception, ex:
-                    print compare
-                    print item
-                    print ex.message, ex.args
+                    print(ex.message, ex.args)
                     raise Exception
 
                 compare = item
