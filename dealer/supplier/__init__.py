@@ -46,6 +46,10 @@ class Supplier(object):
 
         return False
 
-from .database import *
+
+
+from .database.athena import Athena
+from .database.dynamo import Dynamo
+from .database.mssql import Mssql
+
 from .file import *
-from .s3 import *

@@ -101,21 +101,21 @@ def display(data, columns, head, summary):
     """
     for df in data:
         if head:
-            print df.head(20)
+            print(df.head(20))
 
         elif columns:
             cols = columns.split(',')
             for index, row in df[cols].iterrows():
-                print '\t'.join([str(r) if len(str(r)) < 64 else str(r)[:32] + '...' + str(r)[-32:] for r in row.tolist()])
+                print('\t'.join([str(r) if len(str(r)) < 64 else str(r)[:32] + '...' + str(r)[-32:] for r in row.tolist()]))
 
         elif summary:
             from numpy import object
-            print df.describe(include=[object])
+            print(df.describe(include=[object]))
 
         else:
-            print '\t'.join(df.columns)
+            print('\t'.join(df.columns))
             for index, row in df[:].iterrows():
-                print '\t'.join([str(r).encode('ascii', 'ignore') for r in row.tolist()])
+                print('\t'.join([str(r).encode('ascii', 'ignore') for r in row.tolist()]))
 
         yield df
 
@@ -147,7 +147,7 @@ def extract(supplier, store, file_type, limit, query, query_file, query_type):
 
         _class = getattr(dealer.supplier, Supplier.determine(supplier))(supplier)
         df = _class.read(store, **kwargs)
-    except Exception, ex:
+    except Exception as ex:
         Logger.error(ex.message)
         Logger.critical('Terminating execution')
         return
