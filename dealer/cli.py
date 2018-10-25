@@ -16,12 +16,10 @@ import dealer.supplier
 @click.group(chain=True)
 def cli():
     """
-    This script contains the commands to do NLP analysis
-    of various BAS data sources.  Commands can be
-    chained together to create pipelined jobs.
+    The data-dealer cli gives an interface to run a series
+    of commands to extract, transform, and load data sources.
 
-    Example:
-        dealer extract bas-sql-ana BAS_DW load file data.json overwrite
+    Example Commands:
     """
     Logger.debug('Logging setup. Opening command line interface and initializing')
     pass

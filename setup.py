@@ -28,7 +28,7 @@ class run_tests(Command):
 		raise SystemExit(errno)
 
 setup(
-    name='dealer',
+    name='data-dealer',
     version=__version__,
 	description = 'A command line interface for the Data Dealer',
 	long_description = long_descr,
@@ -41,8 +41,8 @@ setup(
 		'boto3',
 		'Click',
 		'pandas',
-		# 'psycopg2',
-		# 'pymssql',
+		'psycopg2',
+		'pymssql',
 		'python-dateutil<2.7',
 		'ruamel.yaml'
     ],

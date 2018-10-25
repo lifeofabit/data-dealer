@@ -1,7 +1,9 @@
 *.DS_Store
 *.pyc
 .coverage
-dealer.egg-info
+data_dealer.egg-info
 dealer/registry/registry.yaml
 tmp
 config.py
+build/
+dist/

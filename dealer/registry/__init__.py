@@ -32,8 +32,8 @@ class Registry(object):
         if not self.registry:
             self.logger.info('The registry is empty!')
         else:
-            self.logger.info('{:#<50}\n{}\n'.format('', '# Data Suppliers:'))
-            self.logger.info(yaml.dump(self.registry, default_flow_style=False))
+            self.logger.info('### Data Supplier Registry ###\n{}'.format(
+                yaml.dump(self.registry, default_flow_style=False)))
 
     def get(self, supplier):
         """
@@ -54,7 +54,7 @@ class Registry(object):
         """
         self.registry[supplier] = self._parse(properties)
         self._write()
-        self.logger.debug('Registring supplier: {}'.format(supplier))
+        self.logger.info('Registring supplier: {}'.format(supplier))
 
     def remove(self, supplier):
         """
@@ -62,7 +62,7 @@ class Registry(object):
         """
         self.registry.pop(supplier, {})
         self._write()
-        self.logger.debug('Removed supplier: {}'.format(supplier))
+        self.logger.info('Removed supplier: {}'.format(supplier))
 
     def remove_property(self, supplier, property):
         """
@@ -100,6 +100,9 @@ class Registry(object):
                 map(lambda p: self.remove_property(supplier, p), properties)
 
         else:
+            self.logger.critical('Not a valid Registry command. Commands supported:\n - {}'.format(
+                ', '.join(['display', 'show', 'add', 'remove'])
+            ))
             raise EnvironmentError('Not a valid Registry command')
 
     def _exists(self, supplier):
