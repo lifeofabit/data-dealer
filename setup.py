@@ -41,8 +41,8 @@ setup(
 		'boto3',
 		'Click',
 		'pandas',
-		'psycopg2',
-		'pymssql',
+		# 'psycopg2',
+		# 'pymssql',
 		'python-dateutil<2.7',
 		'ruamel.yaml'
     ],
@@ -51,7 +51,7 @@ setup(
 	},
     entry_points='''
         [console_scripts]
-        dealer=cli:cli
+        dealer=dealer.cli:cli
     ''',
 	cmdclass = {'test': run_tests}
 )
