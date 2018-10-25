@@ -48,6 +48,13 @@ class Registry(object):
 
         return supplier, self.registry[supplier]
 
+    def load(self, file_path):
+        """
+        Load command.  Read a yaml from file or s3 and load as registry
+        """
+        self._load(file_path)
+        self._write()
+
     def register(self, supplier, properties):
         """
         Register command.  Creates or updates a supplier in the registry
@@ -56,7 +63,7 @@ class Registry(object):
         self._write()
         self.logger.info('Registring supplier: {}'.format(supplier))
 
-    def remove(self, supplier):
+    def remove_supplier(self, supplier):
         """
         Remove command.  Removes a supplier from the registry
         """
@@ -74,7 +81,6 @@ class Registry(object):
         self.registry[supplier].pop(property)
         self._write()
         self.logger.debug('Removed property {} from {}'.format(property, supplier))
-
 
     def run(self, command, supplier=None, properties=None):
         """
@@ -94,14 +100,19 @@ class Registry(object):
                 raise EnvironmentError('Need to give a supplier as option')
 
             if not properties:
-                self.remove(supplier)
+                self.remove_supplier(supplier)
             else:
-                properties = properties.split(',')
-                map(lambda p: self.remove_property(supplier, p), properties)
+                map(lambda p: self.remove_property(supplier, p), properties.split(','))
+
+        elif command == 'load':
+            if not supplier:
+                self.logger.error('Must provide option -s with file path for yaml')
+
+            self.load(supplier)
 
         else:
             self.logger.critical('Not a valid Registry command. Commands supported:\n - {}'.format(
-                ', '.join(['display', 'show', 'add', 'remove'])
+                ', '.join(['display', 'show', 'add', 'remove', 'load'])
             ))
             raise EnvironmentError('Not a valid Registry command')
 
@@ -114,11 +125,11 @@ class Registry(object):
 
         return False
 
-    def _load(self):
+    def _load(self, file_path=REG_PATH):
         """
         Load the registry file into memory
         """
-        with open(REG_PATH, 'r') as f:
+        with open(file_path, 'r') as f:
             self.registry = yaml.load(f.read(), Loader=yaml.Loader)
 
     def _parse(self, properties):
