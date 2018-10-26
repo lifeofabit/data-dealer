@@ -1,5 +1,5 @@
 # data-dealer (0.0.4)
-A Python wrapper for data virtualization, ETL and serialization as a pandas dataframe.  Provides a Click CLI application to connect to data stores and 
+A Python wrapper for data virtualization, ETL and serialization as a pandas dataframe.  
 
 ## Installation
 ``` pip install data-dealer```
@@ -13,15 +13,29 @@ A Python wrapper for data virtualization, ETL and serialization as a pandas data
 - AWS s3 (In Development)
 
 ## Registry
-In order to begin using the data dealer, you must register some suppliers.
+In order to begin using the data dealer, you must register some suppliers. The following CLI commands will help you manage your registry
 
-- Register a new supplier
+#### Register a new supplier
 
-- Load a registry from file
+``` dealer registry -s test-supplier -p "dbms=mssql;host=localhost;uname=MyUsername;pword=MyPassword" add``` 
 
-- Load a registry from s3
+Valid supplier properties:
+- dbms (athena, mssql, dynamo)
+- host
+- port
+- uname
+- pword
+- aws_key
+- aws_secret
 
-- Update a supplier's property
+#### Load a registry from file
+``` dealer registry -s ~/registry.yaml load ```
+
+#### Display current registry
+``` dealer registry [display|show] ```
+
+#### Remove a supplier from the registry
+``` dealer registry -s test-supplier remove ```
 
 ## Change Log
 - Added a registry command to load from file

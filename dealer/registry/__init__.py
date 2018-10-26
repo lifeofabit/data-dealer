@@ -43,7 +43,8 @@ class Registry(object):
 
         if not self._exists(supplier):
             if supplier not in BUILT_IN:
-                raise ValueError('Supplier {} does not exist and needs to be registered and/or implemented.'.format(supplier))
+                self.logger.error('Supplier {} does not exist and needs to be registered'.format(supplier))
+                return
             return supplier, {}
 
         return supplier, self.registry[supplier]
@@ -76,7 +77,8 @@ class Registry(object):
         Remove property command.  Removes a property from the registry
         """
         if not self.registry.get(supplier):
-            raise EnvironmentError('Supplier {} does not exist. Terminating execution'.format(supplier))
+            self.logger.error('Supplier {} does not exist. Terminating execution'.format(supplier))
+            return
 
         self.registry[supplier].pop(property)
         self._write()
@@ -89,15 +91,18 @@ class Registry(object):
         self.logger.debug('Running registry command: {}'.format(command))
         if command == 'display' or command == 'show':
             self.display()
+
         elif command == 'add' or command == 'update':
             # TO-DO: Fix update command, currently clobbers what is there
             if not supplier or not properties:
-                raise EnvironmentError('Need to give a supplier and properties as options')
+                self.logger.error('Must provide option -s with supplier name and option -p with properties')
+                return
 
             self.register(supplier, properties)
         elif command == 'remove':
             if not supplier:
-                raise EnvironmentError('Need to give a supplier as option')
+                self.logger.error('Must provide option -s with supplier name')
+                return
 
             if not properties:
                 self.remove_supplier(supplier)
@@ -107,14 +112,15 @@ class Registry(object):
         elif command == 'load':
             if not supplier:
                 self.logger.error('Must provide option -s with file path for yaml')
+                return
 
             self.load(supplier)
 
         else:
-            self.logger.critical('Not a valid Registry command. Commands supported:\n - {}'.format(
+            self.logger.critical('{} is not a valid Registry command. Supported commands are:\n - {}'.format(
+                command,
                 ', '.join(['display', 'show', 'add', 'remove', 'load'])
             ))
-            raise EnvironmentError('Not a valid Registry command')
 
     def _exists(self, supplier):
         """
