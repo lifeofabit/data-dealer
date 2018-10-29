@@ -37,8 +37,5 @@ Valid supplier properties:
 #### Remove a supplier from the registry
 ``` dealer registry -s test-supplier remove ```
 
-## Change Log
-- Added a registry command to load from file
-
 ## To-Do List:
 Too many things to count
