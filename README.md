@@ -38,4 +38,9 @@ Valid supplier properties:
 ``` dealer registry -s test-supplier remove ```
 
 ## To-Do List:
+- Create s3 connection to pull down files and serialize
+- Fix FileNotFoundError when trying to write to a path where dir doesn't exist
+- Fix registry get issue when supplier is not present in registry
+- Add exception handling for pymssql OperationalError (unable to connect or does not exist 20009)
+- Make some external modules optional (pymssql, psycopg)
 Too many things to count
